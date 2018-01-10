@@ -21,15 +21,13 @@ cmd = [
     ]
 
 if args.dump_test_attrs:
-
-    # TODO Vendorize 'reflection'
     cmd.append('-incdir')
-    cmd.append('../../../reflection/dependencies/vpi/sv')
-    cmd.append('../../../reflection/dependencies/vpi/sv/vpi.sv')
-    cmd.append('../../../reflection/dependencies/vpi/c/vpi.c')
+    cmd.append('../../vendor/sv/reflection/dependencies/vpi/sv')
+    cmd.append('../../vendor/sv/reflection/dependencies/vpi/sv/vpi.sv')
+    cmd.append('../../vendor/sv/reflection/dependencies/vpi/c/vpi.c')
     cmd.append('-incdir')
-    cmd.append('../../../reflection/sv')
-    cmd.append('../../../reflection/sv/reflection.sv')
+    cmd.append('../../vendor/sv/reflection/sv')
+    cmd.append('../../vendor/sv/reflection/sv/reflection.sv')
 
     cmd.append('../../sv/tgen_dumper.sv')
     cmd.append('+TGEN_PKGNAME=' + args.dump_test_attrs)
