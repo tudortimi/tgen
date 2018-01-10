@@ -1,0 +1,5 @@
+INCA_libs
+irun.history
+*.log
+*.pyc
+test/sim/*.json

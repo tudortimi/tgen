@@ -1,0 +1,10 @@
+- need to be careful when looping over all variables in search of attributes, as these aren't
+  supported for all variable types
+  * need to handle unsupported in an elegant way in 'reflection', with parameters or something
+  * user code should use these parameters, for example, to avoid calling functions where they would
+    fail
+
+- need to support more than just 'int'
+  * 'int unsigned' and 'bit' should be sufficient, though
+
+- provide a more 'OOP' interface in Python instead of just dictionaries
