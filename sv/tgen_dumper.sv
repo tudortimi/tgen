@@ -1,4 +1,4 @@
-// Copyright 2016-2018 Tudor Timisescu (verificationgentleman.com)
+// Copyright 2018 Tudor Timisescu (verificationgentleman.com)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,16 +18,20 @@ module tgen_dumper;
   import uvm_pkg::*;
   import reflection::*;
 
+  import tgen::*;
+
 
   string package_name = get_package_name();
 
 
   initial begin
+    automatic uvm_test_extraction test_extraction;
     automatic rf_class tests[];
 
     $display("Dumping TGen test attributes for package '%s'", package_name);
 
-    tests = get_tests(package_name);
+    test_extraction = new(package_name);
+    tests = test_extraction.get_tests();
     write_attrs(tests);
   end
 
@@ -38,35 +42,6 @@ module tgen_dumper;
 
     // TODO Currently only dumping from a single package is supported.
     return plusargs[0];
-  endfunction
-
-
-  function automatic array_of_rf_class get_tests(string package_name);
-    rf_package pkg = rf_manager::get_package_by_name(package_name);
-    rf_class classes[] = pkg.get_classes();
-    rf_class result[$];
-
-    foreach (classes[i])
-      if (is_uvm_test(classes[i]) && !classes[i].is_abstract())
-        result.push_back(classes[i]);
-
-    return result;
-  endfunction
-
-
-  function automatic bit is_uvm_test(rf_class cls);
-    static rf_package uvm_pkg = rf_manager::get_package_by_name("uvm_pkg");
-    static rf_class uvm_test = uvm_pkg.get_class_by_name("uvm_test");
-
-    rf_class base_class = cls.get_base_class();
-
-    if (base_class == null)
-      return 0;
-
-    if (base_class.equals(uvm_test))
-      return 1;
-
-    return is_uvm_test(base_class);
   endfunction
 
 

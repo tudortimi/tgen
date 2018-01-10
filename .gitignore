@@ -3,3 +3,4 @@ irun.history
 *.log
 *.pyc
 test/sim/*.json
+sv_unit/sim
