@@ -62,7 +62,8 @@ module tgen_dumper;
 
   function automatic string get_attrs_for_single_test(rf_class test);
     string result;
-    rf_variable test_attrs[] = read_attrs(test);
+    tagged_class_var_extraction extr = new(test);
+    string test_attrs[] = extr.get_all();
 
     result = { result, "{" };
     result = { result, $sformatf("\"name\": \"%s\"", test.get_name()) };
@@ -73,8 +74,8 @@ module tgen_dumper;
           result,
           $sformatf(
               "\"%s\": %s",
-              test_attrs[i].get_name(),
-              value(test_attrs[i])) };
+              test_attrs[i],
+              value_to_string(extr.get_value(test_attrs[i]))) };
     end
 
     result = { result, "}" };
@@ -82,44 +83,11 @@ module tgen_dumper;
   endfunction
 
 
-  function automatic array_of_rf_variable read_attrs(rf_class test);
-    rf_variable result[$];
-    rf_variable vars[] = test.get_variables();
-
-    foreach (vars[i])
-      if (is_test_attr(vars[i])) begin
-        if (!vars[i].is_static() || !vars[i].is_const()) begin
-          string supported_msg = "Only 'static const' variables are supported.";
-
-          $error(
-              "Unsupported test attribute variable '%s' found. %s\n%s",
-              vars[i].get_name(),
-              supported_msg,
-              "Skipping.");
-          continue;
-        end
-
-        result.push_back(vars[i]);
-      end
-
-    return result;
-  endfunction
-
-
-  function automatic bit is_test_attr(rf_variable v);
-    rf_attribute attrs[] = v.get_attributes();
-    foreach (attrs[i])
-      if (attrs[i].get_name() == "tgen_test_attr")
-        return 1;
-    return 0;
-  endfunction
-
-
-  function string value(rf_variable v);
-    rf_value #(int) val;
-    if (!$cast(val, v.get()))
+  function string value_to_string(rf_value_base val);
+    rf_value #(int) int_val;
+    if (!$cast(int_val, val))
       $error("Unsupported variable type");
-    return $sformatf("%0d", val.get());
+    return $sformatf("%0d", int_val.get());
   endfunction
 
 endmodule

@@ -1,3 +1,6 @@
 [submodule "vendor/sv/reflection"]
 	path = vendor/sv/reflection
 	url = https://github.com/tudortimi/reflection.git
+[submodule "vendor/sv/prog_assert"]
+	path = vendor/sv/prog_assert
+	url = https://github.com/tudortimi/prog_assert.git

@@ -13,16 +13,28 @@
 // limitations under the License.
 
 
-package tgen;
+virtual class test_attributes;
 
-  `include "prog_assert.svh"
+  // XXX Should be an interface class
 
-  import reflection::*;
 
-  `include "tgen_test_extraction.svh"
-  `include "tgen_test_attributes.svh"
+  typedef string strings[];
 
-  `include "tgen_uvm_test_extraction.svh"
-  `include "tgen_tagged_class_var_extraction.svh"
 
-endpackage
+  /**
+   * Returns '1' if and only if an attribute called 'name' is present.
+   */
+  pure virtual function bit has(string name);
+
+  /**
+   * Returns a list of all attribute names that are present.
+   */
+  pure virtual function strings get_all();
+
+  /**
+   * Returns the value of the requested attribute. If the attribute doesn't have a value, it returns
+   * null. Throws an error if the attribute doesn't exist.
+   */
+  pure virtual function rf_value_base get_value(string name);
+
+endclass

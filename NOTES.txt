@@ -1,3 +1,7 @@
+- attributes defined for classes aren't supported in IUS
+  * use class variables tagged with attributes (which do seem to be supported) instead
+  * it isn't possible to merely tag something about a class, only to define key/value pairs
+
 - need to be careful when looping over all variables in search of attributes, as these aren't
   supported for all variable types
   * need to handle unsupported in an elegant way in 'reflection', with parameters or something
