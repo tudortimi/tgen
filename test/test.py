@@ -43,9 +43,8 @@ class TestIntegration(unittest.TestCase):
         test1 = next(test for test in tests if test['name'] == 'test1')
         self.assertEqual(test1['num_runs_for_normal'], 100)
 
-        # Need to fix
-        #derived_test0 = next(test for test in tests if test['name'] == 'derived_test0')
-        #self.assertEqual(derived_test0['num_runs_for_mini'], 1)
+        derived_test0 = next(test for test in tests if test['name'] == 'derived_test0')
+        self.assertEqual(derived_test0['num_runs_for_mini'], 1)
 
         derived_test1 = next(test for test in tests if test['name'] == 'derived_test1')
         self.assertEqual(derived_test1['num_runs_for_mini'], 2)

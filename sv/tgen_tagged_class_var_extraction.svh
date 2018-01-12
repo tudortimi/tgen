@@ -20,28 +20,61 @@
  * Only 'static' variables are allowed so that the extraction can be done from the class type and
  * not from an object of the class. Only 'const' variables are allowed, otherwise it would be
  * possible to modify their values before performing extraction.
+ *
+ * Attributes for a class are inherited from its base class. The normal rules of 'static' variable
+ * scoping apply:
+ *
+ *   - if 'attr' isn't present in 'class' a reference to 'class::attr' delivers the value of 'attr'
+ *     defined in the base class (assuming it exists)
+ *   - if 'attr' is present in both 'class' and its base class, then a reference to 'class::attr'
+ *     delivers the value defined in 'class'
  */
 class tagged_class_var_extraction extends test_attributes;
 
-  local const rf_class class_;
   local const rf_variable tagged_vars[$];
 
 
   function new(rf_class class_);
-    this.class_ = class_;
-
-    compute_tagged_vars();
+    tagged_vars = get_pruned_vars(get_tagged_vars(class_));
   endfunction
 
 
-  local function void compute_tagged_vars();
+  local function array_of_rf_variable get_pruned_vars(array_of_rf_variable vars);
+    rf_variable result[$] = vars;
+
+    for (int i = 0; 1; i++) begin
+      string name = result[i].get_name();
+      int find_result[$] = result.find_index() with (item.get_name() == name);
+
+      while (find_result.size() > 1) begin
+        int last_duplicate = find_result.pop_back();
+        result.delete(last_duplicate);
+      end
+
+      if (i == result.size() - 1)
+        break;
+    end
+
+    return result;
+  endfunction
+
+
+  local function array_of_rf_variable get_tagged_vars(rf_class class_);
+    rf_variable result[$];
+
     rf_variable vars[] = class_.get_variables();
     foreach (vars[i])
       if (has_tgen_attr(vars[i]))
         if (is_supported(vars[i]))
-          tagged_vars.push_back(vars[i]);
+          result.push_back(vars[i]);
         else
           issue_not_supported_error(vars[i]);
+
+    if (class_.get_base_class() != null) begin
+      result = { result, get_tagged_vars(class_.get_base_class()) };
+    end
+
+    return result;
   endfunction
 
 

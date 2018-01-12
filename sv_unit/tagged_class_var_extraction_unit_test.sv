@@ -28,6 +28,7 @@ module tagged_class_var_extraction_unit_test;
 
   tagged_class_var_extraction extr_attrs;
   tagged_class_var_extraction extr_attr_vals;
+  tagged_class_var_extraction extr_subclass_attr_vals;
 
 
   typedef class some_class;
@@ -42,6 +43,9 @@ module tagged_class_var_extraction_unit_test;
     extr_attr_vals = new(
         rf_manager::get_module_by_name("tagged_class_var_extraction_unit_test")
             .get_class_by_name("some_other_class"));
+    extr_subclass_attr_vals = new(
+        rf_manager::get_module_by_name("tagged_class_var_extraction_unit_test")
+            .get_class_by_name("some_derived_class"));
   endfunction
 
 
@@ -83,6 +87,25 @@ module tagged_class_var_extraction_unit_test;
   endclass
 
 
+  class some_base_class;
+
+    (* tgen_test_attr *)
+    static const int base_var = 1000;
+
+    (* tgen_test_attr *)
+    static const int overridden_var = 100;
+
+  endclass
+
+
+  class some_derived_class extends some_base_class;
+
+    (* tgen_test_attr *)
+    static const int overridden_var = 10;
+
+  endclass
+
+
 
   `SVUNIT_TESTS_BEGIN
 
@@ -104,6 +127,12 @@ module tagged_class_var_extraction_unit_test;
     `SVTEST_END
 
 
+    `SVTEST(has__in_derived_class_attr_from_base_class__return_1)
+      string name = "base_var";
+      `FAIL_UNLESS(extr_subclass_attr_vals.has(name))
+    `SVTEST_END
+
+
     `SVTEST(get_all__returns_all_tagged_vars)
       string exp_names[] = {
           "tagged_var",
@@ -117,12 +146,28 @@ module tagged_class_var_extraction_unit_test;
     `SVTEST_END
 
 
+    `SVTEST(get_all__derived_class_with_overridden__returns_overriden_only_once)
+      string attrs[] = extr_subclass_attr_vals.get_all();
+      `FAIL_UNLESS(attrs.size() == 2)
+      `FAIL_IF(attrs[0] == attrs[1])
+    `SVTEST_END
+
+
     `SVTEST(get_value__int_attr__returns_value)
       rf_value_base value = extr_attr_vals.get_value("int_attr");
       rf_value #(int) int_value;
 
       `FAIL_UNLESS($cast(int_value, value))
       `FAIL_UNLESS(int_value.get() == 42)
+    `SVTEST_END
+
+
+    `SVTEST(get_value__overriden_var__returns_overriden_value)
+      rf_value_base value = extr_subclass_attr_vals.get_value("overridden_var");
+      rf_value #(int) int_value;
+
+      `FAIL_UNLESS($cast(int_value, value))
+      `FAIL_UNLESS(int_value.get() == 10)
     `SVTEST_END
 
   `SVUNIT_TESTS_END
