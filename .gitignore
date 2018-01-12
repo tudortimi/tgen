@@ -1,6 +1,12 @@
 INCA_libs
 irun.history
+
+*.elog
 *.log
 *.pyc
+
 test/sim/*.json
+test/vmanager/sessions
+test/vmanager/tests.vsif
+
 sv_unit/sim

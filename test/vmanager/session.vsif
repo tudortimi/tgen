@@ -1,0 +1,11 @@
+session example {
+  top_dir: ./sessions;
+};
+
+
+#include "tests.vsif"
+
+
+extend tests {
+  run_script: echo "Running $BRUN_TEST_NAME";
+};

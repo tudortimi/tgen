@@ -22,7 +22,7 @@ import unittest
 
 sys.path.append('../py')
 
-import tgen
+import tgen.frontend
 
 
 class TestIntegration(unittest.TestCase):
@@ -30,7 +30,7 @@ class TestIntegration(unittest.TestCase):
     def test_read_from_dumper(self):
         os.chdir('sim')
         subprocess.call([ './run.py', '--dump-test-attrs', 'tests', 'test0' ])
-        tests = tgen.TestReader('tests_test_attrs.json').get_tests()
+        tests = tgen.frontend.JSONReader('tests_test_attrs.json').get_tests()
 
         self.assertEqual(len(tests), 4)
 

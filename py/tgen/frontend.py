@@ -19,7 +19,7 @@ import collections
 import json
 
 
-class TestReader:
+class JSONReader:
 
     def __init__(self, inputFile):
         self._inputFile = inputFile
