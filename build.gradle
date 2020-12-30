@@ -12,3 +12,16 @@ sourceSets {
         }
     }
 }
+
+dependencies {
+    compile('com.verificationgentleman:prog_assert') {
+        version {
+            branch = 'master'
+        }
+    }
+    compile('com.verificationgentleman:reflection') {
+        version {
+            branch = 'master'
+        }
+    }
+}
