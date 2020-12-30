@@ -23,3 +23,7 @@ test/vmanager/sessions
 test/vmanager/tests.vsif
 
 sv_unit/sim
+
+# IntelliJ IDEA
+.idea
+*.iml
