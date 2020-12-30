@@ -13,6 +13,9 @@ parser.add_argument('-t',
 args = parser.parse_args()
 
 
+subprocess.check_call(['./gradlew', 'genFullArgsFile'], cwd='..')
+
+
 cmd = [
     'runSVUnit',
     '-s', 'ius',
