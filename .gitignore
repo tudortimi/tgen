@@ -11,11 +11,16 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+xcelium.d
+xrun.history
+
 INCA_libs
 irun.history
 
 *.elog
 *.log
+
+.pytest_cache
 *.pyc
 
 test/sim/*.json
