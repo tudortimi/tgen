@@ -3,3 +3,12 @@ plugins {
 }
 
 group 'com.verificationgentleman'
+
+sourceSets {
+    main {
+        sv {
+            srcDirs = ['sv']
+            exclude 'tgen_dumper.sv'
+        }
+    }
+}
