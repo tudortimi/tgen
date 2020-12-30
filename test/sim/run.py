@@ -21,6 +21,8 @@ cmd = [
     ]
 
 if args.dump_test_attrs:
+    subprocess.check_call(['./gradlew', 'genFullArgsFile'], cwd='../..')
+
     cmd.append('-F')
     cmd.append('../../build/full_args.f')
 
