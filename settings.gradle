@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+    }
+}
+
+sourceControl {
+    gitRepository("https://github.com/tudortimi/prog_assert.git") {
+        producesModule("com.verificationgentleman:prog_assert")
+    }
+    gitRepository("https://github.com/tudortimi/reflection.git") {
+        producesModule("com.verificationgentleman:reflection")
+    }
+}

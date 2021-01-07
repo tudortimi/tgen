@@ -21,8 +21,8 @@ cmd = [
     ]
 
 if args.dump_test_attrs:
-    cmd.append('-F')
-    cmd.append('../../build/tgen.f')
+    subprocess.check_call(['./gradlew', 'genFullArgsFile'], cwd='../..')
+    cmd.extend(['-f', '../../build/full_args.f'])
 
     cmd.append('../../sv/tgen_dumper.sv')
     cmd.append('+TGEN_PKGNAME=' + args.dump_test_attrs)

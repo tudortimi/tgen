@@ -19,6 +19,9 @@ cmd = [
     '-o', 'sim',
     ]
 
+subprocess.check_call(['./gradlew', 'genFullArgsFile'], cwd='..')
+cmd.extend(['-f', '../build/full_args.f'])
+
 if args.tests:
     for test in args.tests:
         cmd.append('-t')
