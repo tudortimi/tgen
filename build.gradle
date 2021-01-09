@@ -1,9 +1,10 @@
 buildscript {
-    repositories {
-        mavenLocal()
-    }
     dependencies {
-        classpath "com.verificationgentleman.gradle:gradle-hdvl:0.1.0-SNAPSHOT"
+        classpath("com.verificationgentleman.gradle:gradle-hdvl") {
+            version {
+                branch = "master"
+            }
+        }
     }
 }
 

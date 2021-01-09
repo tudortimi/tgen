@@ -1,4 +1,10 @@
 sourceControl {
+    gitRepository("https://github.com/tudortimi/gradle-hdvl.git") {
+        producesModule("com.verificationgentleman.gradle:gradle-hdvl")
+    }
+}
+
+sourceControl {
     gitRepository("https://github.com/tudortimi/prog_assert.git") {
         producesModule("com.verificationgentleman:prog_assert")
     }
