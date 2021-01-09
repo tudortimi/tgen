@@ -1,6 +1,14 @@
-plugins {
-    id 'com.verificationgentleman.gradle.hdvl.systemverilog' version '0.1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath "com.verificationgentleman.gradle:gradle-hdvl:0.1.0-SNAPSHOT"
+    }
 }
+
+apply plugin: 'com.verificationgentleman.gradle.hdvl.systemverilog'
+
 
 group 'com.verificationgentleman'
 
