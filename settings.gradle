@@ -12,3 +12,14 @@ sourceControl {
         producesModule("com.verificationgentleman:reflection")
     }
 }
+
+includeBuild('plugins')
+
+sourceControl {
+    gitRepository("https://github.com/tudortimi/svunit.git") {
+        producesModule("org.svunit:svunit")
+        plugins {
+            id "local-svunit-build"
+        }
+    }
+}
