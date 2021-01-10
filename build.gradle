@@ -35,3 +35,12 @@ dependencies {
 dependencies {
     testCompile "org.svunit:svunit:v3.34.2"
 }
+
+toolChains {
+    runSVUnit {
+        // Needed for test code which depends on UVM
+        args '--c_arg "-uvm"'
+        // Needed for reflection to read values
+        args '--c_arg "-access r"'
+    }
+}
