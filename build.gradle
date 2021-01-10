@@ -12,6 +12,11 @@ sourceSets {
             exclude 'tgen_dumper.sv'
         }
     }
+    test {
+        sv {
+            srcDirs = ['sv_unit']
+        }
+    }
 }
 
 dependencies {
