@@ -30,3 +30,7 @@ test/vmanager/tests.vsif
 # IntelliJ IDEA
 .idea
 *.iml
+
+# DVT
+.project
+.dvt
