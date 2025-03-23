@@ -14,9 +14,9 @@ gradlePlugin {
 
 
 repositories {
-    mavenLocal()
+    gradlePluginPortal()
 }
 
 dependencies {
-    runtimeClasspath "com.verificationgentleman.gradle:gradle-hdvl:0.1.0-SNAPSHOT"
+    runtimeClasspath "com.verificationgentleman.gradle:gradle-hdvl:0.2.7"
 }
