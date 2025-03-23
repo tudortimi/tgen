@@ -8,12 +8,9 @@ import org.gradle.api.initialization.Settings
 class LocalSVUnitBuildPlugin implements Plugin<Settings> {
 
     void apply(Settings settings) {
-        settings.getGradle().rootProject(new Action<Project>() {
-            @Override
-            public void execute(Project project) {
-                project.apply plugin: "com.verificationgentleman.gradle.hdvl.svunit-build"
-            }
-        });
+        settings.gradle.rootProject {
+            apply plugin: 'com.verificationgentleman.gradle.hdvl.svunit-build'
+        }
     }
 
 }
