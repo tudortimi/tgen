@@ -8,8 +8,6 @@ import org.gradle.api.initialization.Settings
 class LocalSVUnitBuildPlugin implements Plugin<Settings> {
 
     void apply(Settings settings) {
-        settings.getRootProject().setName("svunit");
-
         settings.getGradle().rootProject(new Action<Project>() {
             @Override
             public void execute(Project project) {
