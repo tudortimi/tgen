@@ -24,10 +24,10 @@ class LocalSVUnitBuildPlugin implements Plugin<Settings> {
     private addInjectedPluginToClassPath(Project project) {
         project.buildscript {
             repositories {
-                mavenLocal()
+                gradlePluginPortal()
             }
             dependencies {
-                classpath "com.verificationgentleman.gradle:gradle-hdvl:0.1.0-SNAPSHOT"
+                classpath "com.verificationgentleman.gradle:gradle-hdvl:0.2.7"
             }
         }
 
