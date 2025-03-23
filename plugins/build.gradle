@@ -1,6 +1,5 @@
 plugins {
-    id 'groovy'
-    id 'java-gradle-plugin'
+    id 'groovy-gradle-plugin'
 }
 
 gradlePlugin {
@@ -18,5 +17,5 @@ repositories {
 }
 
 dependencies {
-    runtimeClasspath "com.verificationgentleman.gradle:gradle-hdvl:0.2.7"
+    implementation "com.verificationgentleman.gradle:gradle-hdvl:0.2.7"
 }
