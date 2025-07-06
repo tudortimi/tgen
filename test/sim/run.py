@@ -11,7 +11,7 @@ args = parser.parse_args()
 
 
 cmd = [
-    'irun',
+    'xrun',
     '-access', 'rw',
     '-uvm',
     '-incdir', '../sv',
