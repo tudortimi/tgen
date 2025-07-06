@@ -1,4 +1,4 @@
-#!/bin/env python3.4
+#!/bin/env python3
 
 """
    Copyright 2018 Tudor Timisescu (verificationgentleman.com)
