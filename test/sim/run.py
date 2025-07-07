@@ -1,4 +1,4 @@
-#!/bin/env python3.4
+#!/bin/env python3
 
 import argparse
 import subprocess
@@ -11,7 +11,7 @@ args = parser.parse_args()
 
 
 cmd = [
-    'irun',
+    'xrun',
     '-access', 'rw',
     '-uvm',
     '-incdir', '../sv',
@@ -21,8 +21,8 @@ cmd = [
     ]
 
 if args.dump_test_attrs:
-    subprocess.check_call(['./gradlew', 'genFullArgsFile'], cwd='../..')
-    cmd.extend(['-f', '../../build/full_args.f'])
+    subprocess.check_call(['./gradlew', 'genFullXrunArgsFile'], cwd='../..')
+    cmd.extend(['-f', '../../build/full_xrun_args.f'])
 
     cmd.append('../../sv/tgen_dumper.sv')
     cmd.append('+TGEN_PKGNAME=' + args.dump_test_attrs)
