@@ -29,6 +29,7 @@ module tagged_class_var_extraction_unit_test;
   tagged_class_var_extraction extr_attrs;
   tagged_class_var_extraction extr_attr_vals;
   tagged_class_var_extraction extr_subclass_attr_vals;
+  tagged_class_var_extraction extr_attributes_of_class_without_attributes;
 
 
   typedef class some_class;
@@ -46,6 +47,9 @@ module tagged_class_var_extraction_unit_test;
     extr_subclass_attr_vals = new(
         rf_manager::get_module_by_name("tagged_class_var_extraction_unit_test")
             .get_class_by_name("some_derived_class"));
+    extr_attributes_of_class_without_attributes = new(
+        rf_manager::get_module_by_name("tagged_class_var_extraction_unit_test")
+            .get_class_by_name("some_class_without_attributes"));
   endfunction
 
 
@@ -102,6 +106,13 @@ module tagged_class_var_extraction_unit_test;
 
     (* tgen_test_attr *)
     static const int overridden_var = 10;
+
+  endclass
+
+
+  class some_class_without_attributes;
+
+      static const int some_untagged_var = 1;
 
   endclass
 
@@ -168,6 +179,12 @@ module tagged_class_var_extraction_unit_test;
 
       `FAIL_UNLESS($cast(int_value, value))
       `FAIL_UNLESS(int_value.get() == 10)
+    `SVTEST_END
+
+
+    `SVTEST(get_all__class_without_attributes__returns_empty_array)
+      string attrs[] = extr_attributes_of_class_without_attributes.get_all();
+      `FAIL_UNLESS(attrs.size() == 0)
     `SVTEST_END
 
   `SVUNIT_TESTS_END
