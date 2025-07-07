@@ -42,6 +42,9 @@ class tagged_class_var_extraction extends test_attributes;
   local function array_of_rf_variable get_pruned_vars(array_of_rf_variable vars);
     rf_variable result[$] = vars;
 
+    if (result.size() == 0)
+      return {};
+
     for (int i = 0; 1; i++) begin
       string name = result[i].get_name();
       int find_result[$] = result.find_index() with (item.get_name() == name);
